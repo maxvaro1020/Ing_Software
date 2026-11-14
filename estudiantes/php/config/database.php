@@ -2,8 +2,8 @@
 // Configuración de conexión a la misma base de datos sistema_estudiantes.
 $host = 'localhost';
 $db   = 'sistema_estudiantes';
-$user = 'root';
-$pass = 'Semaforo123%'; // Cambia esta contraseña si tu MySQL utiliza una.
+$user = '';
+$pass = ''; // Cambia esta contraseña si tu MySQL utiliza una.
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
