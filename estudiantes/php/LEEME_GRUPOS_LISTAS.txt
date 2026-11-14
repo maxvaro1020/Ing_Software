@@ -1,0 +1,35 @@
+ACTUALIZACIÓN: CREACIÓN DE GRUPOS Y GENERADOR DE LISTAS
+
+BASE DE DATOS
+- Se utiliza la misma base de datos existente: sistema_estudiantes.
+- No se crea una base de datos nueva.
+- Las funciones existentes y las tablas originales se conservan.
+- El archivo instalar_grupos_listas.sql agrega únicamente cuatro tablas:
+  grupos, grupo_alumnos, listas_alumnos y lista_alumnos_detalle.
+
+INSTALACIÓN EN XAMPP
+1. Descomprime el proyecto y copia la carpeta estudiantes dentro de htdocs.
+2. Inicia Apache y MySQL.
+3. Abre http://localhost/phpmyadmin
+4. Selecciona la base de datos sistema_estudiantes.
+5. Importa php/instalar_grupos_listas.sql (o abre la pestaña SQL y ejecuta su contenido).
+6. Abre php/config/database.php y ajusta host, usuario y contraseña de MySQL.
+   Por defecto está configurado para XAMPP: localhost, usuario root y contraseña vacía.
+7. Entra a http://localhost/estudiantes/php/panel.php
+
+RUTAS
+- Grupos: http://localhost/estudiantes/php/grupos/index.php
+- Generador de listas: http://localhost/estudiantes/php/listas/index.php
+
+FUNCIONES
+- Crear y eliminar grupos.
+- Agregar alumnos existentes a un grupo y retirarlos.
+- Generar una lista vacía o copiar los alumnos de un grupo.
+- Agregar y quitar alumnos de cada lista.
+- Consultar e imprimir listas.
+
+IMPORTANTE
+- Quitar un alumno de un grupo o lista NO elimina su cuenta de la tabla usuarios.
+- Eliminar un grupo elimina su relación de integrantes; las listas generadas desde ese grupo conservan sus alumnos porque tienen sus propias relaciones.
+- Eliminar una lista elimina únicamente esa lista y sus relaciones.
+- La aplicación requiere que exista la tabla usuarios con id_usuario, nombre, apellido y email, tal como aparece en el esquema SQL original.
