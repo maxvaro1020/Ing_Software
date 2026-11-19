@@ -29,7 +29,7 @@ $info=[]; foreach($grupos as $g){ $info[$g['id_grupo']]=[$g['nombre_grupo'],$g['
 <main class="enroll"><div class="wrap grid">
 <div>
   <div class="eyebrow">Inscripción · <?= htmlspecialchars($c['nombre']) ?></div><h1>Reserva tu lugar.</h1>
-  <p class="lead">Elige el grupo que mejor se adapte a tu día a día. Es una solicitud sin costo: Servicios Escolares te contactará para confirmar tu inscripción.</p>
+  <p class="lead">Elige el grupo que mejor se adapte a tu día a día. Es una solicitud sin costo: Servicios Escolares te contactará para confirmar tu inscripción una vez que Servicios Financieros valide tu pago.</p>
   <div class="form-card">
   <?php if($done): ?>
     <div class="done-box show"><div class="big"><?= $done['lleno']?'Estás en la lista de espera':'¡Solicitud enviada!' ?></div><div class="folio">Folio <?= $done['folio'] ?></div>

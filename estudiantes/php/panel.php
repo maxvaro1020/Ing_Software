@@ -4,7 +4,7 @@ $pageTitle='Panel';
 $n=fn($sql)=>(int)$pdo->query($sql)->fetchColumn();
 $stats=[[$n("SELECT COUNT(*) FROM usuarios"),'Alumnos registrados'],[$n("SELECT COUNT(*) FROM grupos WHERE estado='activo'"),'Grupos activos'],
 [$n("SELECT COUNT(*) FROM inscripciones WHERE estado='pendiente'"),'Inscripciones pendientes'],[$n("SELECT COUNT(*) FROM inscripciones WHERE estado='lista_espera'"),'En lista de espera'],
-[$n("SELECT COUNT(*) FROM pagos WHERE estado_pago='pendiente'"),'Pagos por validar']];
+[$n("SELECT COUNT(*) FROM inscripciones i WHERE i.estado='pendiente' AND (".sqlEstadoPago('i').")='pagado'"),'Pagadas, listas para inscribir']];
 $grupos=$pdo->query("SELECT g.*,COALESCE(SUM(i.estado='confirmada'),0) c,COALESCE(SUM(i.estado='pendiente'),0) p,COALESCE(SUM(i.estado='lista_espera'),0) e FROM grupos g LEFT JOIN inscripciones i ON i.id_grupo=g.id_grupo GROUP BY g.id_grupo ORDER BY g.nombre_grupo")->fetchAll();
 $mod=['presencial'=>'Presencial','en_linea'=>'En línea','mixta'=>'Mixta'];
 require __DIR__.'/includes/header.php';

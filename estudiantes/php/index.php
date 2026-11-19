@@ -8,6 +8,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
   if($a==='login'){
     $abrir=true; $em=trim($_POST['email'] ?? ''); $pw=$_POST['password'] ?? '';
     if(strcasecmp($em,ADMIN_EMAIL)===0 && $pw===ADMIN_PASS){ $_SESSION['admin']=true; header('Location: panel.php'); exit; }
+    if(strcasecmp($em,FIN_EMAIL)===0 && $pw===FIN_PASS){ $_SESSION['finanzas']=true; header('Location: finanzas/panel.php'); exit; }
     $st=$pdo->prepare("SELECT id_usuario,nombre,email,password FROM usuarios WHERE email=?"); $st->execute([$em]); $u=$st->fetch();
     if($u && (password_verify($pw,$u['password']) || hash_equals((string)$u['password'],$pw))){
       $_SESSION['alumno']=['id'=>$u['id_usuario'],'nombre'=>$u['nombre'],'email'=>$u['email']]; header('Location: '.$next); exit; }

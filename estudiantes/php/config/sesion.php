@@ -3,12 +3,27 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 // Acceso de administración (cámbialo aquí):
 const ADMIN_EMAIL = 'admin@languageschoolar.com';
 const ADMIN_PASS  = 'admin123';
+// Acceso de Servicios Financieros (rol separado del Administrador; cámbialo aquí):
+const FIN_EMAIL = 'finanzas@languageschoolar.com';
+const FIN_PASS  = 'finanzas123';
 function esAdmin(){ return !empty($_SESSION['admin']); }
+function esFinanzas(){ return !empty($_SESSION['finanzas']); }
 function alumnoActual(){ return $_SESSION['alumno'] ?? null; }
 function baseUrl(){ $root=rtrim(str_replace('\\','/',$_SERVER['DOCUMENT_ROOT']),'/'); return str_replace($root,'',str_replace('\\','/',dirname(__DIR__))); }
 function requireAdmin(){ if(!esAdmin()){ header('Location: '.baseUrl().'/admin.php'); exit; } }
+function requireFinanzas(){ if(!esFinanzas()){ header('Location: '.baseUrl().'/finanzas/index.php'); exit; } }
 function nextSeguro($n){ return preg_match('/^[a-z\-]+\.php(\?[a-z0-9=&]*)?$/i',(string)$n) ? $n : 'index.php#idiomas'; }
 function pillEstado($e){ $m=['pendiente'=>['warn','Pendiente'],'confirmada'=>['ok','Confirmada'],'lista_espera'=>['warn','Lista de espera'],'cancelada'=>['bad','Cancelada'],'aprobado'=>['ok','Aprobado'],'rechazado'=>['bad','Rechazado']]; [$c,$t]=$m[$e]??['',$e]; return "<span class='pill $c'".($c==='bad'?" style='background:#fde8e8;color:#9b1c1c'":'').">$t</span>"; }
+// Estado de pago de una inscripción, derivado de los pagos que valida Servicios Financieros.
+// Administración / Servicios Escolares solo consulta este valor (nunca montos ni comprobantes).
+// Valores: pagado | en_revision | rechazado | sin_pago
+function sqlEstadoPago($alias='i'){
+  return "CASE WHEN EXISTS(SELECT 1 FROM pagos p WHERE p.id_inscripcion=$alias.id_inscripcion AND p.estado_pago='aprobado') THEN 'pagado'
+    WHEN EXISTS(SELECT 1 FROM pagos p WHERE p.id_inscripcion=$alias.id_inscripcion AND p.estado_pago='pendiente') THEN 'en_revision'
+    WHEN EXISTS(SELECT 1 FROM pagos p WHERE p.id_inscripcion=$alias.id_inscripcion AND p.estado_pago='rechazado') THEN 'rechazado'
+    ELSE 'sin_pago' END"; }
+function estadoPagoInscripcion($pdo,$id){ $st=$pdo->prepare("SELECT ".sqlEstadoPago('i')." FROM inscripciones i WHERE i.id_inscripcion=?"); $st->execute([(int)$id]); return $st->fetchColumn() ?: 'sin_pago'; }
+function pagoTxt($e){ return ['pagado'=>'Pagado','en_revision'=>'En revisión','rechazado'=>'Rechazado','sin_pago'=>'Sin pago'][$e]??$e; }
 function idiomaInfo($n){ $k=strtr(mb_strtolower($n),['í'=>'i','é'=>'e','á'=>'a','ñ'=>'n']);
   foreach(['ingl'=>['en','Hello!'],'franc'=>['fr','Bonjour!'],'ital'=>['it','Ciao!'],'alem'=>['de','Hallo!']] as $p=>$v) if(str_contains($k,$p)) return $v; return ['','¡Hola!']; }
 function modalidadTxt($m){ return ['presencial'=>'Presencial','en_linea'=>'Online en directo','mixta'=>'Mixta'][$m]??$m; }

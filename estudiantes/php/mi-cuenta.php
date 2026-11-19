@@ -5,7 +5,7 @@ $al=alumnoActual(); if(!$al){ header('Location: index.php?login=1&next=mi-cuenta
 $msg='';
 if($_SERVER['REQUEST_METHOD']==='POST' && ($_POST['action'] ?? '')==='pago'){
   $iid=(int)$_POST['insc']; $ok=$pdo->prepare("SELECT 1 FROM inscripciones WHERE id_inscripcion=? AND id_usuario=?"); $ok->execute([$iid,$al['id']]);
-  if($ok->fetchColumn() && (float)$_POST['monto']>0){ $pdo->prepare("INSERT INTO pagos(id_inscripcion,monto,comprobante_url) VALUES(?,?,?)")->execute([$iid,(float)$_POST['monto'],trim($_POST['url'] ?? '')?:null]); $msg='Pago reportado. Será validado por Servicios Escolares.'; }
+  if($ok->fetchColumn() && (float)$_POST['monto']>0){ $pdo->prepare("INSERT INTO pagos(id_inscripcion,monto,comprobante_url) VALUES(?,?,?)")->execute([$iid,(float)$_POST['monto'],trim($_POST['url'] ?? '')?:null]); $msg='Pago reportado. Será validado por Servicios Financieros.'; }
 }
 $st=$pdo->prepare("SELECT i.*,g.nombre_grupo,g.horario,c.nombre curso FROM inscripciones i LEFT JOIN grupos g ON g.id_grupo=i.id_grupo LEFT JOIN cursos c ON c.id_curso=i.id_curso WHERE i.id_usuario=? ORDER BY i.id_inscripcion DESC"); $st->execute([$al['id']]); $ins=$st->fetchAll();
 $st=$pdo->prepare("SELECT p.* FROM pagos p JOIN inscripciones i ON i.id_inscripcion=p.id_inscripcion WHERE i.id_usuario=? ORDER BY p.id_pago DESC"); $st->execute([$al['id']]); $pagos=$st->fetchAll();

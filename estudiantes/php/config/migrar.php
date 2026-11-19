@@ -24,6 +24,10 @@ function asegurarEsquema(PDO $pdo): void {
                 'para_quien' => ['VARCHAR(255) NULL', null],
                 'foto_url'   => ['VARCHAR(500) NULL', null],
             ],
+            'pagos' => [
+                'observaciones' => ['VARCHAR(500) NULL', null],   // motivo de rechazo / nota financiera
+                'validado_por'  => ['VARCHAR(120) NULL', null],
+            ],
             'usuarios' => [
                 'telefono' => ['VARCHAR(30) NULL', null],
             ],

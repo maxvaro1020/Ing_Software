@@ -7,10 +7,10 @@ $self = str_replace('\\','/',$_SERVER['SCRIPT_NAME']);
 $items = [
  'GENERAL'=>[['Panel','panel.php','panel.php'],],
  'GESTIÓN'=>[['Alumnos','alumnos.php','alumnos.php'],['Cursos','cursos.php','cursos.php'],['Grupos','grupos/index.php','/grupos/'],['Inscripciones','inscripciones.php','inscripciones.php'],['Preguntas frecuentes','faqs.php','faqs.php'],['Generador de listas','listas/index.php','/listas/']],
- 'FINANZAS'=>[['Pagos','pagos.php','pagos.php']],
  'SITIO'=>[['↗ Página principal','index.php','index.php?x']],
 ];
 if(!function_exists('tagEstado')){function tagEstado($e){$m=['pendiente'=>['warn','Pendiente'],'confirmada'=>['','Confirmada'],'cancelada'=>['err','Cancelada'],'lista_espera'=>['info','Lista de espera'],'aprobado'=>['','Aprobado'],'rechazado'=>['err','Rechazado']];[$c,$t]=$m[$e]??['',$e];return "<span class='tag $c'>$t</span>";}}
+if(!function_exists('tagPago')){function tagPago($e){$c=['pagado'=>'','en_revision'=>'warn','rechazado'=>'err','sin_pago'=>'info'][$e]??'';return "<span class='tag $c'>".pagoTxt($e)."</span>";}}
 ?>
 <!DOCTYPE html>
 <html lang="es">
