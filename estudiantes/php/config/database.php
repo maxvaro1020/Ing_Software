@@ -3,7 +3,7 @@
 $host = 'localhost';
 $db   = 'sistema_estudiantes';
 $user = 'root';
-$pass = 'Semaforo123%'; // Cambia esta contraseña si tu MySQL utiliza una.
+$pass = ''; // Cambia esta contraseña si tu MySQL utiliza una.
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
