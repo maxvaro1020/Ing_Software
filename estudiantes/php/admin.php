@@ -12,7 +12,7 @@ require __DIR__.'/includes/public_header.php';
 ?>
 <main class="enroll"><div class="wrap" style="max-width:460px">
   <div class="eyebrow">Administración</div><h1>Acceso del personal.</h1>
-  <p class="lead">Entra para gestionar alumnos, cursos, grupos, inscripciones, pagos y preguntas frecuentes.</p>
+  <p class="lead">Entra para gestionar alumnos, cursos, grupos, inscripciones (con su estado de pago) y preguntas frecuentes.</p>
   <div class="form-card"><form method="post">
     <div class="ff"><label>Correo de administrador</label><input type="email" name="email" placeholder="admin@languageschoolar.com" required></div>
     <div class="ff"><label>Contraseña</label><input type="password" name="password" required></div>

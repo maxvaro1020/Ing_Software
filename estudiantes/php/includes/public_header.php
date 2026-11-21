@@ -16,5 +16,7 @@
   <?php elseif(!empty($esIndex)): ?><button class="account-btn" id="accountBtn">☺ Mi cuenta ⌄</button>
   <?php else: ?><a class="account-btn" href="index.php?login=1" style="text-decoration:none">☺ Mi cuenta</a><?php endif; ?>
   <?php if(!esAdmin()): ?><a class="account-btn" href="admin.php" style="text-decoration:none;margin-left:8px">⚙ Admin</a><?php endif; ?>
-  <?php if(esAdmin() || $al): ?><a class="account-btn" href="logout.php" style="text-decoration:none;margin-left:8px">Cerrar sesión</a><?php endif; ?>
+  <?php if(esFinanzas()): ?><a class="account-btn" href="finanzas/panel.php" style="text-decoration:none;margin-left:8px">$ Finanzas</a>
+  <?php elseif(!esAdmin()): ?><a class="account-btn" href="finanzas/index.php" style="text-decoration:none;margin-left:8px">$ Finanzas</a><?php endif; ?>
+  <?php if(esAdmin() || esFinanzas() || $al): ?><a class="account-btn" href="logout.php" style="text-decoration:none;margin-left:8px">Cerrar sesión</a><?php endif; ?>
 </div></header>

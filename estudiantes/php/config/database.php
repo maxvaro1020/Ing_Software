@@ -2,7 +2,7 @@
 // Configuración de conexión a la misma base de datos sistema_estudiantes.
 $host = 'localhost';
 $db   = 'sistema_estudiantes';
-$user = '';
+$user = 'root';
 $pass = ''; // Cambia esta contraseña si tu MySQL utiliza una.
 $charset = 'utf8mb4';
 
@@ -23,6 +23,9 @@ try {
 require_once __DIR__.'/migrar.php';
 asegurarEsquema($pdo);
 
-// Las páginas públicas definen PUBLICO; todo lo demás exige sesión de administrador.
+// Las páginas públicas definen PUBLICO; las de Servicios Financieros definen FINANZAS;
+// todo lo demás exige sesión de administrador. Los roles están separados: el administrador
+// no entra a finanzas/ y Servicios Financieros no entra a las pantallas de administración.
 require_once __DIR__.'/sesion.php';
-if (!defined('PUBLICO')) requireAdmin();
+if (defined('FINANZAS')) requireFinanzas();
+elseif (!defined('PUBLICO')) requireAdmin();

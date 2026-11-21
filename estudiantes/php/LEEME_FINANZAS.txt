@@ -1,0 +1,18 @@
+INTERFAZ DE SERVICIOS FINANCIEROS (dos actores: Administrador y Servicios Financieros)
+
+ACCESO
+- Servicios Financieros: /estudiantes/php/finanzas/index.php  (también sirve el login normal del sitio)
+  Usuario: finanzas@languageschoolar.com  Contraseña: finanzas123  (cámbialos en php/config/sesion.php: FIN_EMAIL, FIN_PASS)
+- Administrador: sin cambios (admin.php).
+
+SEPARACIÓN DE RESPONSABILIDADES
+- Servicios Financieros: ve montos y comprobantes; valida o rechaza pagos (motivo obligatorio al rechazar); registra pagos.
+- Administración / Servicios Escolares: ya NO ve pagos.php. Solo consulta el ESTADO DE PAGO
+  (Pagado / En revisión / Rechazado / Sin pago) para decidir si inscribe al alumno:
+    * Inscripciones: no se puede pasar a «Confirmada» sin pago «Pagado».
+    * Grupos: solo se puede agregar a un grupo a alumnos con un pago validado.
+- Validar un pago ya no confirma la inscripción automáticamente; lo decide Administración.
+- Cada rol no entra a las pantallas del otro.
+
+BASE DE DATOS
+- No requiere SQL manual: config/migrar.php agrega pagos.observaciones y pagos.validado_por al abrir cualquier página.
