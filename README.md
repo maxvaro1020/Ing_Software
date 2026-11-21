@@ -19,11 +19,11 @@ Sistema de gestión para la administración de alumnos, niveles, inscripciones, 
 
 ## Instrucciones de Instalación y Ejecución
 1. Clonar este repositorio dentro de la carpeta local de Apache:
-   `C:\xampp\htdocs\proyecto_estudiantes_php_mysql\`
+   `C:\xampp\htdocs\estudiantes\`
 2. Iniciar el panel de control de XAMPP y activar los servicios de **Apache** y **MySQL**.
 3. Ingresar a phpMyAdmin (`http://localhost/phpmyadmin`) o MySQL Workbench y crear la base de datos:
    `CREATE DATABASE sistema_estudiantes;`
 4. Importar el archivo script `schema.sql` ubicado en la raíz del proyecto para crear las tablas e índices.
 5. Ajustar la contraseña de conexión MySQL en `includes/conexion.php` si es necesario.
 6. Abrir en el navegador la URL principal:
-   `http://localhost/proyecto_estudiantes_php_mysql/views/index.php`
+   `http://localhost/estudiantes/views/index.php`
